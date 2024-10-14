@@ -26,28 +26,28 @@ public class MainApp {
       userService.add(new User("User3", "Lastname3", "user3@mail.ru", car3));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru", car4));
 
-      System.out.println("---------Таблица Users-----------");
       List<User> users = userService.listUsers();
+      if (users.size() != 0) {
+         System.out.println("\n---------Таблица Users-----------");
+      }
+
       for (User user : users) {
          System.out.println(user);
       }
       System.out.println();
 
-      String model = "Model";
-      int series = 400;
-      System.out.printf("---------Таблица Users с моделью машины %s и серией %d -----------", model, series);
+      // задаем параметры машины для поиска user c такой машиной
+      String model = "Model3";
+      int series = 300;
+
       users = userService.getByCarData(model, series);
+      if (users.size() != 0) {
+         System.out.printf("\n---------Таблица Users с моделью машины %s и серией %d -----------\n", model, series);
+      }
+
       for (User user : users) {
          System.out.println(user);
       }
-
-//      for (User user : users) {
-//         System.out.println("Id = "+user.getId());
-//         System.out.println("First Name = "+user.getFirstName());
-//         System.out.println("Last Name = "+user.getLastName());
-//         System.out.println("Email = "+user.getEmail());
-//         System.out.println("Car = "+user.getCar());
-//      }
 
       context.close();
    }
