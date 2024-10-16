@@ -23,21 +23,13 @@ public class UserServiceImp implements UserService {
    @Transactional(readOnly = true)
    @Override
    public List<User> listUsers() {
-      List<User> users = userDao.listUsers();
-      if (users.size() == 0) {
-         System.out.println("\n Таблица не заполнена!");
-      }
-      return users;
+      return userDao.listUsers();
    }
 
    @Transactional(readOnly = true)
    @Override
-   public List<User> getByCarData(String model, int series) {
-      List<User> users = userDao.getByCarData(model, series);
-      if (users.size() == 0) {
-         System.out.println("\n В таблице нет пользователей (user) с таким типом машины (model и series)!");
-      }
-      return users;
+   public User getByCar(String model, int series) {
+      return userDao.getByCar(model, series);
    }
 
 }

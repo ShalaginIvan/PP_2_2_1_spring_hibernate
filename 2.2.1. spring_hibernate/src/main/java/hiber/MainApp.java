@@ -11,8 +11,8 @@ import java.util.List;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
-      AnnotationConfigApplicationContext context = 
-            new AnnotationConfigApplicationContext(AppConfig.class);
+      AnnotationConfigApplicationContext context =
+              new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
 
@@ -37,16 +37,16 @@ public class MainApp {
       System.out.println();
 
       // задаем параметры машины для поиска user c такой машиной
-      String model = "Model3";
-      int series = 300;
+      String model = "Model1";
+      int series = 100;
 
-      users = userService.getByCarData(model, series);
-      if (users.size() != 0) {
-         System.out.printf("\n---------Таблица Users с моделью машины %s и серией %d -----------\n", model, series);
-      }
+      User user = userService.getByCar(model, series);
 
-      for (User user : users) {
+      if (user != null) {
+         System.out.printf("\n User с моделью машины %s и серией %d : \n", model, series);
          System.out.println(user);
+      } else {
+         System.out.printf("\n User с моделью машины %s и серией %d не найден! \n", model, series);
       }
 
       context.close();
