@@ -10,32 +10,32 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-   @Override
-   public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
-   }
+    @Override
+    public void add(User user) {
+        sessionFactory.getCurrentSession().save(user);
+    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
-   }
-   @Override
-   @SuppressWarnings("unchecked")
-   public User getByCar(String model, int series) {
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> listUsers() {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
+    }
 
-      String hql = "FROM User u WHERE u.car.model = :model AND u.car.series = :series";
-      List<User> users = sessionFactory.getCurrentSession().createQuery(hql)
-              .setParameter("model", model)
-              .setParameter("series", series)
-              .getResultList();
+    @Override
+    @SuppressWarnings("unchecked")
+    public User getByCar(String model, int series) {
 
-      User user = users.isEmpty() ? null : users.get(0);
-
-      return user;
-   }
+        String hql = "FROM User u WHERE u.car.model = :model AND u.car.series = :series";
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
+        return query
+                .setParameter("model", model)
+                .setParameter("series", series)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);  // Возвращаем null, если пользователь не найден
+    }
 }

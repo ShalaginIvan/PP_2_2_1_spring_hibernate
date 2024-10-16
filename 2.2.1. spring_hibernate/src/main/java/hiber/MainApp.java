@@ -37,8 +37,8 @@ public class MainApp {
       System.out.println();
 
       // задаем параметры машины для поиска user c такой машиной
-      String model = "Model1";
-      int series = 100;
+      String model = "Model2";
+      int series = 200;
 
       User user = userService.getByCar(model, series);
 
